@@ -1,0 +1,49 @@
+{
+  "features_finales": [
+    "DissolvedOxygen (mg/L)",
+    "pH",
+    "WaterTemp (C)",
+    "AirTemp (C)",
+    "Log_Salinity",
+    "Log_Secchi",
+    "Log_WaterDepth",
+    "DO_Temp_Ratio",
+    "Secchi_Depth_Ratio",
+    "pH_Deviation",
+    "Thermal_Stress",
+    "AirWater_TempDiff",
+    "Roll7_DO",
+    "Roll14_DO",
+    "Trend_DO",
+    "Roll7_Temp",
+    "Roll14_Temp",
+    "Trend_Temp",
+    "Roll7_pH",
+    "Roll7_Sal",
+    "Month_Sin",
+    "Month_Cos",
+    "Saison_Automne",
+    "Saison_Hiver",
+    "Saison_Printemps",
+    "Saison_Été",
+    "Zone_enc_Zone_Cotiere",
+    "Zone_enc_Zone_Lagon",
+    "Zone_enc_Zone_Large"
+  ],
+  "num_classes": 5,
+  "class_mapping": {
+    "0": "Excellente",
+    "1": "Bonne",
+    "2": "Acceptable",
+    "3": "Mauvaise",
+    "4": "Dangereuse"
+  },
+  "model_type": "XGBoost",
+  "target": "WQI_Class",
+  "created_at": "2026-04-19 07:04:02",
+  "performance": {
+    "accuracy_test": 0.9168646080760094,
+    "f1_macro_test": 0.9226992637962166,
+    "roc_auc_test": 0.9913940700039579
+  }
+}
