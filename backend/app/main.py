@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from app.routers import predict, segment
 
 app = FastAPI(
-    title="Water Quality API",
-    description="Prédiction de la qualité de l'eau à partir de mesures terrain",
+    title="Aqualog API",
+    description="Coastal water quality assessment and algae bloom detection API",
     version="1.0.0",
 )
 
+# Enable CORS for frontend communication
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -20,10 +20,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Register routers
 app.include_router(predict.router, prefix="/api/v1", tags=["prediction"])
 app.include_router(segment.router, prefix="/api/v1", tags=["segmentation"])
 
-
 @app.get("/")
 async def root():
-    return {"message": "Water Quality API - Bienvenue"}
+    return {"message": "Aqualog API - Welcome"}

@@ -13,17 +13,26 @@ scaler = None
 metadata = None
 
 def load_artifacts():
+    """
+    Load ML model, scaler, and metadata from the artifacts directory.
+    """
     global model, scaler, metadata
     try:
+        if not os.path.exists(MODEL_PATH):
+            raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
+            
         model = joblib.load(MODEL_PATH)
+        
         with open(SCALER_PATH, 'rb') as f:
             scaler = pickle.load(f)
+            
         with open(METADATA_PATH, 'r', encoding='utf-8') as f:
             metadata = json.load(f)
-        print("✅ Modèle, scaler et métadonnées chargés")
+            
+        print("Success: Model, scaler, and metadata loaded.")
     except Exception as e:
-        print(f"❌ Erreur de chargement: {e}")
-        raise HTTPException(status_code=500, detail="Modèle non disponible")
+        print(f"Error loading artifacts: {e}")
+        raise HTTPException(status_code=500, detail="Machine Learning models are not currently available.")
 
 def get_model():
     if model is None:
@@ -40,9 +49,6 @@ def get_metadata():
         load_artifacts()
     return metadata
 
-
-
-# Ajoutez cette fonction
 def get_feature_names():
-    metadata = get_metadata()
-    return metadata.get('features_finales', [])
+    meta = get_metadata()
+    return meta.get('features_finales', [])

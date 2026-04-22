@@ -3,18 +3,17 @@ import numpy as np
 
 def build_features_with_metadata(input_df: pd.DataFrame, metadata: dict) -> pd.DataFrame:
     """
-    Construit les features exactes utilisées lors de l'entraînement,
-    en s'assurant que toutes les colonnes attendues sont présentes,
-    avec les bons noms (ceux des métadonnées).
+    Construct the exact features used during training, ensuring all expected columns
+    are present with correct names as defined in model metadata.
     """
     ds = input_df.copy()
-    feature_cols = metadata['features_finales']  # Liste exacte
+    feature_cols = metadata['features_finales'] 
 
-    # Valeur par défaut pour l'oxygène dissous s'il n'est pas fourni
+    # Default value for Dissolved Oxygen if not provided
     if 'DissolvedOxygen (mg/L)' not in ds.columns:
         ds['DissolvedOxygen (mg/L)'] = 7.0
 
-    # --- 1. Features dérivées (les mêmes que lors de l'entraînement) ---
+    # 1. Derived Features (Aligned with training logic) 
     ds['DO_Temp_Ratio'] = (ds['DissolvedOxygen (mg/L)'] /
                             (ds['WaterTemp (C)'] + 0.1)).clip(0.073, 4.594)
     ds['Secchi_Depth_Ratio'] = (ds['SecchiDepth (m)'] /
@@ -24,31 +23,30 @@ def build_features_with_metadata(input_df: pd.DataFrame, metadata: dict) -> pd.D
         lambda t: max(0, t-25) + max(0, 15-t))
     ds['AirWater_TempDiff'] = ds['AirTemp (C)'] - ds['WaterTemp (C)']
 
-    # --- 2. Log-transforms ---
+    # 2. Log-transforms 
     ds['Log_Salinity'] = np.log1p(ds['Salinity (ppt)'])
     ds['Log_Secchi'] = np.log1p(ds['SecchiDepth (m)'])
     ds['Log_WaterDepth'] = np.log1p(ds['WaterDepth (m)'])
 
-    # --- 3. Zone ---
+    # 3. Zone classification 
     ds['Zone'] = ds['WaterDepth (m)'].apply(
         lambda d: 'Zone_Cotiere' if d <= 1.0 else ('Zone_Lagon' if d <= 3.0 else 'Zone_Large'))
 
-    # --- 4. Saison via température ---
+    # 4. Season via Temperature proxy 
     ds['Season'] = ds['WaterTemp (C)'].apply(
         lambda t: 'Été' if t >= 23 else ('Automne' if t >= 18 else ('Printemps' if t >= 14 else 'Hiver')))
 
-    # --- 5. One-hot encodings (noms exacts sans erreur d'accent) ---
-    # On crée un dictionnaire avec les noms exacts tels que dans feature_cols
-    # Pour éviter les problèmes d'accent, on utilise les chaînes brutes.
+    # 5. One-hot encodings (Mapping exact names from metadata) 
     for col in feature_cols:
         if col.startswith('Saison_'):
-            saison = col.split('_')[1]  # ex: "Automne", "Hiver", "Printemps", "Été"
+            # Handling original French bucket names in metadata
+            saison = col.split('_')[1] 
             ds[col] = (ds['Season'] == saison).astype(int)
         elif col.startswith('Zone_enc_'):
             zone = col.replace('Zone_enc_', '')
             ds[col] = (ds['Zone'] == zone).astype(int)
 
-    # --- 6. Rolling (valeurs constantes pour prédiction ponctuelle) ---
+    # 6. Time-series features (Mocked for single point prediction) 
     for col, short in [('DissolvedOxygen (mg/L)', 'DO'), ('WaterTemp (C)', 'Temp'),
                        ('pH', 'pH'), ('Salinity (ppt)', 'Sal')]:
         ds[f'Roll7_{short}'] = ds[col]
@@ -58,10 +56,10 @@ def build_features_with_metadata(input_df: pd.DataFrame, metadata: dict) -> pd.D
     ds['Month_Sin'] = 0.0
     ds['Month_Cos'] = 1.0
 
-    # --- 7. Forcer la présence de toutes les colonnes attendues ---
+    # 7. Ensure all required columns exist 
     for col in feature_cols:
         if col not in ds.columns:
             ds[col] = 0
 
-    # --- 8. Retourner dans l'ordre exact des métadonnées ---
+    # 8. Reorder columns to match model expectations 
     return ds[feature_cols]
