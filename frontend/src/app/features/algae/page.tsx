@@ -2,6 +2,7 @@
 
 import Container from "@/components/global/container";
 import { Header } from "@/components/global/header";
+import Wrapper from "@/components/global/wrapper";
 import { AlgaeUpload } from "./components/algae-upload";
 import { AlgaeResults } from "./components/algae-results";
 import { useAlgae } from "./hooks/use-algae";
@@ -12,7 +13,7 @@ export default function AlgaePage() {
   return (
     <div className="flex min-h-screen flex-col px-3 lg:px-0">
       <main className="flex-1 py-20">
-        <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
+        <Wrapper className="relative pt-6 md:pt-10">
 
           {/* header */}
           <Header
@@ -37,7 +38,7 @@ export default function AlgaePage() {
             originalUrl={originalUrl}
             resultUrl={resultUrl}
           />
-        </div>
+        </Wrapper>
       </main>
     </div>
   );

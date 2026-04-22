@@ -8,6 +8,7 @@ import { ReturnButton } from "@/components/global/return-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Header } from "@/components/global/header";
+import Wrapper from "@/components/global/wrapper";
 
 const features = [
   {
@@ -30,7 +31,7 @@ export default function SelectPage() {
   return (
     <div className="flex min-h-screen flex-col px-3 lg:px-0">
       <main className="flex-1 py-20">
-        <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
+        <Wrapper className="relative pt-6 md:pt-10">
 
           {/* header */}
           <Header
@@ -68,7 +69,7 @@ export default function SelectPage() {
             </div>
           </Container>
 
-        </div>
+        </Wrapper>
       </main>
     </div>
   );

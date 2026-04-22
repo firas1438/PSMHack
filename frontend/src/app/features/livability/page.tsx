@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/components/global/header";
+import Wrapper from "@/components/global/wrapper";
 import { LivabilityForm } from "./forms/livability-form";
 import { LivabilityResults } from "./components/livability-results";
 import Container from "@/components/global/container";
@@ -12,7 +13,7 @@ export default function LivabilityPage() {
   return (
     <div className="flex min-h-screen flex-col px-3 lg:px-0">
       <main className="flex-1 py-20">
-        <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
+        <Wrapper className="relative pt-6 md:pt-10">
           
           {/* header */}
           <Header
@@ -27,7 +28,7 @@ export default function LivabilityPage() {
 
           {/* result */}
           {result && <LivabilityResults result={result} />}
-        </div>
+        </Wrapper>
       </main>
     </div>
   );

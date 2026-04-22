@@ -26,7 +26,7 @@ const Footer = () => {
                   </span>
                 </div>
                 <p className="text-muted-foreground mt-4 text-sm max-w-xs">
-                  AI for seawater livability and algae detection along Tunisia&apos;s Monastir and Mahdia coasts.
+                  AI for seawater livability and algae detection along protected coastal regions.
                 </p>
               </div>
             </Container>

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const generateMetadata = ({
   title = `Aqualog`,
-  description = `AI for seawater livability and satellite algae monitoring on Tunisia's Monastir and Mahdia coasts`,
+  description = `AI for seawater livability and satellite algae monitoring across coastal regions`,
   icons = [
     {
       rel: "apple-touch-icon",

@@ -9,8 +9,6 @@ import Container from "../global/container";
 import Icons from "../global/icons";
 import Wrapper from "../global/wrapper";
 import MobileMenu from "./mobile-menu";
-import { nav_links } from "@/constants";
-import { AnimatePresence } from "framer-motion";
 
 
 const Navbar = () => {
