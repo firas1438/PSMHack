@@ -1,158 +1,105 @@
-<div align="center">
+![AquaLog Poster](/frontend/public/aqualogposter.png)
 
-<br/>
-
-```
- █████╗  ██████╗ ██╗   ██╗ █████╗ ██╗      ██████╗  ██████╗
-██╔══██╗██╔═══██╗██║   ██║██╔══██╗██║     ██╔═══██╗██╔════╝
-███████║██║   ██║██║   ██║███████║██║     ██║   ██║██║  ███╗
-██╔══██║██║▄▄ ██║██║   ██║██╔══██║██║     ██║   ██║██║   ██║
-██║  ██║╚██████╔╝╚██████╔╝██║  ██║███████╗╚██████╔╝╚██████╔╝
-╚═╝  ╚═╝ ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝
-```
+AquaLog is an AI-driven platform designed to monitor and assess coastal health by combining visual satellite analysis with physical-chemical water metrics. Our mission is to provide environmentalists and researchers with the tools needed to detect marine hazards and ensure the sustainability of coastal ecosystems.
 
 
 
-<br/>
+## Context
 
-*Hackathon Intra-Universitaire IA & Environnement — Université de Monastir*
+Coastal regions face significant environmental pressure from industrial activities and climate change. Sudden shifts in water parameters can trigger harmful algal blooms, leading to biodiversity loss and the collapse of local fishing zones.
 
-</div>
+AquaLog addresses this challenge through two specialized AI modules that transform raw data into actionable insights for researchers, biologists, and environmental agencies. By enabling early detection and precise scoring, we help mitigate the impact of pollution and protect marine life globally.
 
----
 
-## 🌊 Contexte
-
-Les gouvernorats de **Monastir et Mahdia** subissent une pression croissante sur leurs eaux côtières due aux activités industrielles et portuaires. La localité de **Ksibet El Mediouni** en est l'exemple concret : épisodes récurrents de marée rouge, mort de la faune marine, contamination des zones de pêche.
-
-AquaLog répond à cette urgence avec deux modules d'IA complémentaires destinés aux experts environnementaux, biologistes et organismes locaux.
-
----
-
-## 🏗️ Architecture
+## Architecture
 
 ```
-                    ┌─────────────────────────────┐
-                    │         AquaLog             │
-                    └──────────────┬──────────────┘
+                    ┌──────────────────────────────┐
+                    │           AquaLog            │
+                    └──────────────┬───────────────┘
                                    │
-              ┌────────────────────┴────────────────────┐
-              │                                         │
-   ┌──────────▼──────────┐               ┌─────────────▼────────────┐
-   │  Module 1           │               │  Module 2                │
-   │  Détection Visuelle │               │  Prédiction WQI          │
-   │  (Otsu + OpenCV)    │               │  (XGBoost)               │
-   └──────────┬──────────┘               └─────────────┬────────────┘
-              │                                         │
-              └──────────────┬──────────────────────────┘
-                             │
-                  ┌──────────▼──────────┐
-                  │   Diagnostic global │
-                  │   + Système alerte  │
-                  └─────────────────────┘
+               ┌───────────────────┴────────────────────┐
+               │                                        │
+    ┌──────────▼──────────┐               ┌─────────────▼────────────┐
+    │  Module 1           │               │  Module 2                │
+    │  Visual Detection   │               │  WQI Prediction          │
+    │  (Otsu + OpenCV)    │               │  (XGBoost)               │
+    └──────────┬──────────┘               └──────────────┬───────────┘
+               │                                         │
+               └───────────────────┬─────────────────────┘
+                                   │
+                        ┌──────────▼──────────┐
+                        │   Global Diagnosis  │
+                        │   + Early Warning   │
+                        └─────────────────────┘
 ```
 
----
 
-## 🔴 Module 1 — Détection Visuelle par Seuillage d'Otsu
+## Module 1. Visual Algae Detection (Otsu Thresholding)
 
-Analyse d'images (terrain ou satellite) pour **localiser et quantifier les zones de prolifération algale**.
+This module analyzes field or satellite imagery to **locate and quantify algal bloom proliferation**.
 
-**Pipeline :**
-
+**Pipeline:**
 ```
-Image couleur → Niveaux de gris → Seuillage Otsu → Nettoyage morphologique → Contours → Statistiques
+Color Image → Grayscale → Otsu Thresholding → Morphological Cleaning → Contours → Statistics
 ```
 
-| Étape | Technique |
+| Step | Technique |
 |-------|-----------|
-| Segmentation | Seuillage d'Otsu — calcul automatique du seuil optimal sans paramétrage |
-| Débruitage | Ouverture & fermeture morphologique |
-| Extraction | Détection de contours + filtrage des faux positifs par surface |
-| Sortie | Masque binaire · image annotée · surface affectée (%) · nombre de zones |
+| Segmentation | Otsu's Thresholding: automatically calculates the optimal threshold without manual tuning |
+| Denoising | Morphological opening & closing operations |
+| Extraction | Contour detection + false positive filtering by area size |
+| Output | Binary mask, Annotated image, Affected surface area (%), Bloom zone count |
 
-> La méthode d'Otsu est particulièrement adaptée aux images marines dont l'histogramme présente une distribution naturellement bimodale entre eaux saines et zones algales.
+> Otsu's method is highly effective for marine imagery where the histogram naturally presents a bimodal distribution between healthy water and bloom zones.
 
----
 
-## 📊 Module 2 — Prédiction de la Qualité de l'Eau
+## Module 2. Water Quality & Livability Prediction
 
-Classification de l'état de l'eau en **5 niveaux de qualité** à partir de mesures physicochimiques de terrain.
+Classifies water status into **5 quality levels** based on physical-chemical field measurements.
 
-### Données
+### Data Overview
 
-**2 371 observations** · 8 variables physicochimiques · collectées entre 1989 et 2019
+- **Source:** [Kaggle - Water Quality Dataset](https://www.kaggle.com/datasets/supriyoain/water-quality-data)
 
-`pH` · `Salinité` · `Oxygène dissous` · `Transparence (Secchi)` · `Profondeur` · `Température eau & air`
+- **2,371 observations:** 8 physical-chemical variables, Multi-decade dataset.
+Variables: `pH`, `Salinity`, `Dissolved Oxygen`, `Transparency (Secchi)`, `Water Depth`, `Water & Air Temperature`.
 
-Preprocessing : détection d'anomalies, imputation par **KNN Imputer** (k = 5), dataset final : 2 366 observations sans valeur manquante.
+- **Preprocessing:** Anomaly detection and **KNN Imputer** (k = 5) were used to ensure a clean, zero-missing-value dataset.
 
-### Indice WQI (variable cible)
+### Water Quality Index (WQI)
+Calculated according to international standards (**WHO & EPA**):
+`WQI = 0.30 × SI_DO + 0.25 × SI_pH + 0.20 × SI_Sal + 0.15 × SI_Temp + 0.10 × SI_Secchi`
 
-Construit selon les normes **OMS & EPA** :
-
-```
-WQI = 0.30 × SI_DO  +  0.25 × SI_pH  +  0.20 × SI_Sal  +  0.15 × SI_Temp  +  0.10 × SI_Secchi
-```
-
-| Classe | Label | Plage WQI |
+| Class | Label | WQI Range |
 |--------|-------|-----------|
-| 0 | 🟢 Excellente | ≥ 80 |
-| 1 | 🔵 Bonne | [65 – 80[ |
-| 2 | 🟡 Acceptable | [50 – 65[ |
-| 3 | 🟠 Mauvaise | [30 – 50[ |
-| 4 | 🔴 Dangereuse | < 30 |
+| 0 | Excellent | ≥ 80 |
+| 1 | Good | [65 – 80[ |
+| 2 | Acceptable | [50 – 65[ |
+| 3 | Poor | [30 – 50[ |
+| 4 | Hazardous | < 30 |
 
-### Feature Engineering
+### Machine Learning & Feature Engineering
+**29 features** were engineered from the 7 raw variables, including physical ratios, log-transforms, rolling averages (7 and 14-day windows), and cyclic seasonal encodings. Class imbalance was addressed using **SMOTE** (k = 3).
 
-**29 features** construites depuis les 7 variables brutes : ratios physiques, log-transforms, rolling features (fenêtres 7 et 14 obs.), encodages saisonniers cycliques.
+The final model is an **XGBoost** classifier, optimized via **GridSearchCV** over 144 hyperparameter combinations.
 
-Le fort déséquilibre des classes critiques est corrigé par **SMOTE** (k = 3) → 2 806 observations après rééchantillonnage.
+## Results
 
-### Modélisation
+- Accuracy: 91.7%
+- F1-Score (Macro): 92.3%
+- ROC-AUC (OvR): 99.1%
 
-Un **Random Forest** (baseline) a révélé un surapprentissage significatif (99.8% train vs 87.6% val). Le modèle final retenu est un **XGBoost** optimisé par **GridSearchCV** sur 144 combinaisons d'hyperparamètres.
+Critical classes (**Poor** and **Hazardous**) achieve an F1-Score > **0.89**, confirming the model's high reliability in detecting high-risk scenarios.
 
----
-
-## 📈 Résultats
-
-| Métrique | Score |
-|----------|-------|
-| **Accuracy** | **91.7 %** |
-| **F1-Score macro** | **92.3 %** |
-| **ROC-AUC (OvR)** | **99.1 %** |
+> **Note:** If you would like to explore the notebook responsible for the model training, you can find it [here](https://www.kaggle.com/code/kassemabbassi/notebook-pr-diction-qualit-eau-mer)
 
 
-Les classes critiques **Mauvaise** et **Dangereuse** atteignent un F1-Score > **0.89**, confirmant l'efficacité du rééchantillonnage sur les classes minoritaires.
+## Contributions
+- Islem Chammakhi 
+- Mohamed Kassem Abbassi
+- Firas Ben Ali 
 
 ---
 
-## 🔭 Perspectives
-
-- Intégration d'images satellites **Sentinel-2** pour une couverture spatiale étendue
-- Application mobile dédiée aux biologistes et pêcheurs
-- Corrélation automatique image ↔ mesures physicochimiques
-- Extension à d'autres zones côtières tunisiennes
-- Monitoring temps réel via capteurs **IoT**
-
----
-
-## 👥 Équipe
-
-| Membre | |
-|--------|-|
-| Islem Chammakhi | Université de Monastir |
-| Firas Ben Ali | Université de Monastir |
-| Mohamed Kassem Abbassi | Université de Monastir |
-
----
-
-<div align="center">
-
-*« L'intelligence artificielle ne doit pas seulement comprendre le monde,*
-*mais contribuer activement à sa préservation. »*
-
-**🌊 AquaLog · Monastir & Mahdia, Tunisie**
-
-</div>
+*"Artificial intelligence should not just understand the world, but actively contribute to its preservation."*
