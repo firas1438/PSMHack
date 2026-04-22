@@ -62,7 +62,7 @@ const Navbar = () => {
           <Container animation="fadeLeft" delay={0.1}>
             <div className="flex items-center gap-x-4">
               {/* Get started */}
-              <Link href="/select" className="lg:block hidden"> 
+              <Link href="/features" className="lg:block hidden"> 
                 <Button size="md" variant="outline">
                   Get Started
                 </Button>

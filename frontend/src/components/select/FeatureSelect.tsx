@@ -1,32 +1,26 @@
 "use client";
 
-import Image from "next/image"; // Import Image component
+import Image from "next/image"; 
 import Link from "next/link";
 
 import Container from "@/components/global/container";
 import { ReturnButton } from "@/components/global/return-button";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 
 const features = [
   {
     title: "Water Livability",
     description: "Assess seawater quality from sample metrics and predict livability class",
     image: "/water.png",
-    href: "/livability",
+    href: "/features/livability",
     ctaText: "Test Livability",
   },
   {
     title: "Algae Detection",
     description: "Detect and segment algae blooms in coastal satellite imagery",
     image: "/algaes.png", 
-    href: "/algae",
+    href: "/features/algae",
     ctaText: "Detect Algae",
   },
 ];

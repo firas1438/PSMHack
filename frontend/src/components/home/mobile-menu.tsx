@@ -25,7 +25,7 @@ const MobileMenu = () => {
               </SheetClose>
             ))}
             <SheetClose asChild>
-              <Link href="/select" className="w-full mt-4">
+              <Link href="/features" className="w-full mt-4">
                 <Button size="lg" variant="outline" className="w-full">
                   About
                 </Button>

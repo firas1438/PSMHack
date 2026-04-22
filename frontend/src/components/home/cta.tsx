@@ -43,7 +43,7 @@ const CTA = () => {
                     Pick seawater samples or a satellite scene—same region focus for Monastir and Mahdia.
                   </p>
                   <div className="mt-5 flex flex-col gap-3">
-                    <Link href="/livability" className="block">
+                    <Link href="/features/livability" className="block">
                       <Button variant="outline" size="lg" className="w-full justify-start gap-3 h-auto py-3">
                         <Droplets className="size-5 shrink-0 text-primary" aria-hidden />
                         <span className="text-left">
@@ -52,7 +52,7 @@ const CTA = () => {
                         </span>
                       </Button>
                     </Link>
-                    <Link href="/algae" className="block">
+                    <Link href="/features/algae" className="block">
                       <Button size="lg" className="w-full justify-start gap-3 h-auto py-3">
                         <Satellite className="size-5 shrink-0 text-primary-foreground/90" aria-hidden />
                         <span className="text-left">

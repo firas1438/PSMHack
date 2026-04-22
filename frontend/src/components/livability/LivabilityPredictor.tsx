@@ -6,17 +6,10 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import Container from "@/components/global/container";
 import { ReturnButton } from "@/components/global/return-button";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -138,11 +131,10 @@ export function LivabilityPredictor() {
 
   return (
     <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
-      <div
-        className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl md:-top-32 md:h-80 md:w-80"
-        aria-hidden
-      />
+      
+      <div className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl md:-top-32 md:h-80 md:w-80" aria-hidden />
 
+      {/* header */}
       <div className="relative mb-10 space-y-0 sm:mb-12">
         <Container className="w-full">
           <div className="flex items-start justify-between gap-3 sm:items-center sm:gap-4">
@@ -160,6 +152,8 @@ export function LivabilityPredictor() {
         </Container>
       </div>
 
+
+       {/* input form*/}
       <Container delay={0.2} className="w-full">
         <Card className="relative border-border/80 shadow-md shadow-black/10 ring-1 ring-border/40">
           <CardHeader className="space-y-1 pb-2">
@@ -211,6 +205,8 @@ export function LivabilityPredictor() {
         </Card>
       </Container>
 
+
+       {/* result */}
       {result ? (
         <Container
           key={`${result.class_id}-${result.confidence}`}

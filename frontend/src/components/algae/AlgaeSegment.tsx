@@ -5,12 +5,12 @@ import { ImageIcon, Loader2, Upload, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import Container from "@/components/global/container";
-import { ReturnButton } from "@/components/global/return-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { postSegmentImage } from "@/services/api";
+import { Header } from "../global/header";
 
 const MAX_BYTES = 10 * 1024 * 1024;
 const ACCEPT = "image/png,image/jpeg,image/jpg,image/webp,image/gif";
@@ -161,28 +161,15 @@ export function AlgaeSegment() {
 
   return (
     <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
-      <div
-        className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl md:-top-32 md:h-80 md:w-80"
-        aria-hidden
-      />
+      
+      <div className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl md:-top-32 md:h-80 md:w-80" aria-hidden />
 
-      <div className="relative mb-10 space-y-0 sm:mb-12">
-        <Container className="w-full">
-          <div className="flex items-start justify-between gap-3 sm:items-center sm:gap-4">
-            <h1 className="min-w-0 max-w-2xl font-heading text-3xl font-semibold tracking-tight md:text-4xl">
-              Algae segmentation
-            </h1>
-            <ReturnButton className="shrink-0" />
-          </div>
-        </Container>
-        <Container delay={0.1} className="w-full">
-          <p className="mt-3 max-w-2xl text-pretty text-muted-foreground sm:mt-4">
-            Detect and assess algal blooms from water sample imagery. Upload microscopy or field observations to 
-            automatically segment bloom boundaries and classify bloom extent.
-          </p>
-        </Container>
-      </div>
+      {/* header */}
+      <Header title="Algae segmentation" description="Detect and assess algal blooms from water 
+      sample imagery. Upload microscopy or field observations to automatically segment bloom boundaries 
+      and classify bloom extent." />
 
+      {/* image upload */}
       <Container delay={0.2} className="w-full">
         <Card className="relative border-border/80 shadow-md shadow-black/10 ring-1 ring-border/40">
           <CardHeader className="space-y-1 pb-2">
@@ -261,6 +248,7 @@ export function AlgaeSegment() {
         </Card>
       </Container>
 
+      {/* results */}
       {(originalUrl && resultUrl) && (
         <Container delay={0.15} className="mt-10 w-full">
           <div className="grid gap-6 lg:grid-cols-2">

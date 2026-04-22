@@ -43,12 +43,12 @@ const Hero = () => {
 
               <Container delay={0.3}>
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                  <Link href="/algae">
+                  <Link href="/features/algae">
                     <Button size="lg">
                       Detect Algae
                     </Button>
                   </Link>
-                  <Link href="/livability">
+                  <Link href="/features/livability">
                     <Button size="lg" variant="outline">
                       Test Livability
                     </Button>

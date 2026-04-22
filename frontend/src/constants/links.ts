@@ -1,11 +1,11 @@
 export const NAV_LINKS = [
     {
         name: "Water Livability",
-        link: "/livability",
+        link: "/features/livability",
     },
     {
         name: "Algae Segmentation",
-        link: "/algae",
+        link: "/features/algae",
     },
 ];
 
