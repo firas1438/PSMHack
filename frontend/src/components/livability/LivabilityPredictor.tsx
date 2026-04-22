@@ -137,7 +137,7 @@ export function LivabilityPredictor() {
   const isApproxMax = (p: number) => p >= maxProb - 1e-9;
 
   return (
-    <div className="relative mx-auto w-full max-w-7xl px-4 pb-16 pt-6 md:pt-10">
+    <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
       <div
         className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl md:-top-32 md:h-80 md:w-80"
         aria-hidden

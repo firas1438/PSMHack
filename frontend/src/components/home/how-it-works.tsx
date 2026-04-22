@@ -5,7 +5,7 @@ import { Waves, Satellite, FileText } from "lucide-react";
 
 const HowItWorks = () => {
     return (
-      <section id="features" className="flex flex-col items-center justify-center w-full py-16 lg:py-24 px-2 sm:px-0">
+      <section id="features" className="flex flex-col items-center justify-center w-full py-16 lg:py-20 px-2 sm:px-0">
         <Wrapper>
           <Container>
             <div className="flex flex-col lg:flex-row items-start justify-start lg:items-end lg:justify-between px-2 md:px-0">

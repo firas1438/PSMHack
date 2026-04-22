@@ -9,8 +9,8 @@ export const metadata = generateMetadata({
 
 export default function AlgaePage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <main className="flex-1 pt-20 pb-8">
+    <div className="flex min-h-screen flex-col px-3 lg:px-0">
+      <main className="flex-1 py-20">
         <AlgaeSegment />
       </main>
     </div>

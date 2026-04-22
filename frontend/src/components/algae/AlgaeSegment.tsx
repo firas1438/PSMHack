@@ -7,13 +7,7 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Container from "@/components/global/container";
 import { ReturnButton } from "@/components/global/return-button";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { postSegmentImage } from "@/services/api";
@@ -166,7 +160,7 @@ export function AlgaeSegment() {
   }, [file]);
 
   return (
-    <div className="relative mx-auto w-full max-w-7xl px-4 pb-16 pt-6 md:pt-10">
+    <div className="relative mx-auto w-full max-w-7xl px-4 pt-6 md:pt-10">
       <div
         className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl md:-top-32 md:h-80 md:w-80"
         aria-hidden
@@ -212,22 +206,12 @@ export function AlgaeSegment() {
                 <div className="text-sm leading-6 text-foreground">
                   <p className="inline sm:block">
                     <span>Drag and drop or </span>
-                    <Label
-                      htmlFor={inputId}
-                      className="cursor-pointer font-medium text-primary underline-offset-4 hover:underline"
-                    >
+                    <Label htmlFor={inputId} className="cursor-pointer font-medium text-primary underline-offset-4 hover:underline" >
                       choose file
                     </Label>
                     <span> to upload</span>
                   </p>
-                  <input
-                    ref={inputRef}
-                    id={inputId}
-                    type="file"
-                    accept={ACCEPT}
-                    className="sr-only"
-                    onChange={onInputChange}
-                  />
+                  <input ref={inputRef} id={inputId} type="file" accept={ACCEPT} className="sr-only" onChange={onInputChange} />
                 </div>
               </div>
             </div>

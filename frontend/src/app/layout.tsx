@@ -11,13 +11,13 @@ export const metadata = generateMetadata();
 
 export default function RootLayout({ children, }: { children: React.ReactNode; }) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={cn( "min-h-screen bg-background text-foreground font-base antialiased dark", base.variable, heading.variable, )} >
-                <Navbar />
-                    {children}
-                    <Toaster />
-                <Footer />
-            </body>
-        </html>
+      <html lang="en" suppressHydrationWarning>
+        <body className={cn( "min-h-screen bg-background text-foreground font-base antialiased dark", base.variable, heading.variable, )} >
+          <Navbar />
+            {children}
+            <Toaster />
+          <Footer />
+        </body>
+      </html>
     );
 };

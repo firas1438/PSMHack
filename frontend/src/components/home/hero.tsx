@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Hero = () => {
     return (
-      <section id="hero" className="relative z-0 w-full h-full">
+      <section id="hero" className="relative z-0 w-full h-full pb-8">
         <div className="absolute -top-16 inset-x-0 -z-10 mx-auto w-3/4 h-32 lg:h-40 rounded-full blur-[5rem] bg-[radial-gradient(86.02%_172.05%_at_50%_-40%,rgba(18,139,135,1)_0%,rgba(5,5,5,0)_80%)]"></div>
 
         <Image src="/images/hero.svg" alt="" width={1024} height={1024} className="absolute inset-x-0 -top-16 w-full z-10 min-w-full" />
@@ -60,7 +60,7 @@ const Hero = () => {
             {/* right column */}
             <Container className="w-full">
               <div className="relative mx-auto max-w-lg">
-                <Image src="/alges.png" alt="Aqualog coastal water dashboard" priority width={1280} height={1280} loading="eager" className="rounded-2xl md:rounded-[26px] w-full h-auto" />
+                <Image src="/algae.png" alt="Aqualog coastal water dashboard" priority width={1280} height={1280} loading="eager" className="rounded-2xl md:rounded-[26px] w-full h-auto" />
               </div>
             </Container>
           </div>

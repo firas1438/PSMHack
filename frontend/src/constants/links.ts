@@ -1,10 +1,10 @@
 export const NAV_LINKS = [
     {
-        name: "Seawater",
-        link: "/candidates",
+        name: "Water Livability",
+        link: "/livability",
     },
     {
-        name: "Satellite",
+        name: "Algae Segmentation",
         link: "/algae",
     },
 ];

@@ -7,15 +7,13 @@ export const metadata = generateMetadata({
     "Submit seawater sample fields and get livability class, confidence, and per-class probabilities from the prediction API.",
 });
 
+
 export default function LivabilityPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <main className="flex-1 pt-20 pb-8">
+    <div className="flex min-h-screen flex-col px-3 lg:px-0">
+      <main className="flex-1 py-20">
         <LivabilityPredictor />      
       </main>
     </div>
-    
   );
-
-  
 }
