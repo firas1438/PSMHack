@@ -37,9 +37,9 @@ AquaLog addresses this challenge through two specialized AI modules that transfo
 
 ## Module 1. Visual Algae Detection (Otsu Thresholding)
 
-This module analyzes field or satellite imagery to **locate and quantify algal bloom proliferation**.
+This module analyzes field or satellite imagery to locate and quantify algal bloom proliferation.
 
-**Pipeline:**
+Pipeline:
 ```
 Color Image → Grayscale → Otsu Thresholding → Morphological Cleaning → Contours → Statistics
 ```
@@ -56,19 +56,19 @@ Color Image → Grayscale → Otsu Thresholding → Morphological Cleaning → C
 
 ## Module 2. Water Quality & Livability Prediction
 
-Classifies water status into **5 quality levels** based on physical-chemical field measurements.
+Classifies water status into 5 quality levels based on physical-chemical field measurements.
 
 ### Data Overview
 
-- **Source:** [Kaggle - Water Quality Dataset](https://www.kaggle.com/datasets/supriyoain/water-quality-data)
+- Source: [Kaggle - Water Quality Dataset](https://www.kaggle.com/datasets/supriyoain/water-quality-data)
 
-- **2,371 observations:** 8 physical-chemical variables, Multi-decade dataset.
+- 2,371 observations: 8 physical-chemical variables, Multi-decade dataset.
 Variables: `pH`, `Salinity`, `Dissolved Oxygen`, `Transparency (Secchi)`, `Water Depth`, `Water & Air Temperature`.
 
-- **Preprocessing:** Anomaly detection and **KNN Imputer** (k = 5) were used to ensure a clean, zero-missing-value dataset.
+- Preprocessing: Anomaly detection and KNN Imputer (k = 5) were used to ensure a clean, zero-missing-value dataset.
 
 ### Water Quality Index (WQI)
-Calculated according to international standards (**WHO & EPA**):
+Calculated according to international standards (WHO & EPA):
 `WQI = 0.30 × SI_DO + 0.25 × SI_pH + 0.20 × SI_Sal + 0.15 × SI_Temp + 0.10 × SI_Secchi`
 
 | Class | Label | WQI Range |
@@ -80,9 +80,9 @@ Calculated according to international standards (**WHO & EPA**):
 | 4 | Hazardous | < 30 |
 
 ### Machine Learning & Feature Engineering
-**29 features** were engineered from the 7 raw variables, including physical ratios, log-transforms, rolling averages (7 and 14-day windows), and cyclic seasonal encodings. Class imbalance was addressed using **SMOTE** (k = 3).
+29 features were engineered from the 7 raw variables, including physical ratios, log-transforms, rolling averages (7 and 14-day windows), and cyclic seasonal encodings. Class imbalance was addressed using SMOTE (k = 3).
 
-The final model is an **XGBoost** classifier, optimized via **GridSearchCV** over 144 hyperparameter combinations.
+The final model is an XGBoost classifier, optimized via GridSearchCV over 144 hyperparameter combinations.
 
 ## Results
 
@@ -90,7 +90,7 @@ The final model is an **XGBoost** classifier, optimized via **GridSearchCV** ove
 - F1-Score (Macro): 92.3%
 - ROC-AUC (OvR): 99.1%
 
-Critical classes (**Poor** and **Hazardous**) achieve an F1-Score > **0.89**, confirming the model's high reliability in detecting high-risk scenarios.
+Critical classes (Poor and Hazardous) achieve an F1-Score > 0.89, confirming the model's high reliability in detecting high-risk scenarios.
 
 > **Note:** If you would like to explore the notebook responsible for the model training, you can find it [here](https://www.kaggle.com/code/kassemabbassi/notebook-pr-diction-qualit-eau-mer)
 
